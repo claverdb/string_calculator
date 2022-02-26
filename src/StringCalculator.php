@@ -10,7 +10,9 @@ class StringCalculator
     {
         if ($number == ""){
             return "0";
-        }
 
+        } elseif (!str_contains($number, ",")){
+            return $number;
+        }
     }
 }
