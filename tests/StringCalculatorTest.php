@@ -102,4 +102,28 @@ class StringCalculatorTest extends TestCase
 
         $this->assertEquals("Number expected but NOT found",$result_error);
     }
+
+    /**
+     * @test
+     */
+    public function should_add_two_real_numbers_of_one_string_separated_by_given_delimiter()
+    {
+        $string_calculator = new StringCalculator();
+
+        $result_sum = $string_calculator->add("//;\n1;2");
+
+        $this->assertEquals("3",$result_sum);
+    }
+
+    /**
+     * @test
+     */
+    public function should_add_many_real_numbers_of_one_string_separated_by_given_delimiter()
+    {
+        $string_calculator = new StringCalculator();
+
+        $result_sum = $string_calculator->add("//|\n1|2|3");
+
+        $this->assertEquals("6",$result_sum);
+    }
 }
