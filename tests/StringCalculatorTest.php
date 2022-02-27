@@ -137,4 +137,15 @@ class StringCalculatorTest extends TestCase
 
         $this->assertEquals("'|' expected but ',' found at position 3", $result_error);
     }
+
+    /**
+     * @test
+     */
+    public function should_response_error_given_string_with_negative_numbers(){
+        $string_calculator = new StringCalculator();
+
+        $result_error = $string_calculator->add("-1,2");
+
+        $this->assertEquals("Negative not allowed: -1", $result_error);
+    }
 }

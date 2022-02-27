@@ -47,9 +47,12 @@ class StringCalculator
             }
 
             $aux_before_number = 0;
+
             for($i = 0; $i < count($separated_numbers_str); $i++){
                 $aux_before_number += (double) $separated_numbers_str[$i];
-
+                if ((double)$separated_numbers_str[$i] < 0){
+                    return "Negative not allowed: $separated_numbers_str[$i]";
+                }
             }
 
             $number = $aux_before_number;
