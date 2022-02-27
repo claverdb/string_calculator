@@ -14,6 +14,9 @@ class StringCalculator
         } elseif (!str_contains($number, ",")){
             return $number;
 
+        } elseif (str_ends_with($number, ',')){
+            return "Number expected but NOT found";
+
         } elseif (str_contains($number, ",\n") || str_contains($number, "\n,")) {
             if($pos = strpos($number, ",\n")){
                 $pos++;
@@ -27,6 +30,7 @@ class StringCalculator
                 return "Not found";
             }
         } else {
+
             $separated_numbers_str = preg_split('/[,|\n]/', $number);
 
             $number_of_separated_numbers = count($separated_numbers_str);

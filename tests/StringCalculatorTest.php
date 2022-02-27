@@ -90,4 +90,16 @@ class StringCalculatorTest extends TestCase
 
         $this->assertEquals("Number expected but ".'\n'." found at position 8",$result_error);
     }
+
+    /**
+     * @test
+     */
+    public function should_response_error_given_string_of_real_numbers_finished_by_comma()
+    {
+        $string_calculator = new StringCalculator();
+
+        $result_error = $string_calculator->add("1,2,3,4,5.5,");
+
+        $this->assertEquals("Number expected but NOT found",$result_error);
+    }
 }
