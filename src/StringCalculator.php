@@ -47,12 +47,15 @@ class StringCalculator
             }
 
             $aux_before_number = 0;
-
+            $negative_numbers = "";
             for($i = 0; $i < count($separated_numbers_str); $i++){
                 $aux_before_number += (double) $separated_numbers_str[$i];
                 if ((double)$separated_numbers_str[$i] < 0){
-                    return "Negative not allowed: $separated_numbers_str[$i]";
+                    $negative_numbers .= $separated_numbers_str[$i].", ";
                 }
+            }
+            if($negative_numbers != ""){
+                return "Negative not allowed: " . substr($negative_numbers, 0 ,-2);
             }
 
             $number = $aux_before_number;
