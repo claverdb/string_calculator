@@ -15,7 +15,7 @@ class StringCalculator
             return $number;
 
         } else {
-            $separated_numbers_str = explode(",", $number);
+            $separated_numbers_str = preg_split('/[,|\n]/', $number);
 
             $number_of_separated_numbers = count($separated_numbers_str);
 

@@ -67,4 +67,16 @@ class StringCalculatorTest extends TestCase
         $this->assertEquals("15.5", $result_sum);
     }
 
+    /**
+     * @test
+     */
+    public function should_add_many_real_numbers_of_one_string_separated_by_comma_or_line_jump()
+    {
+        $string_calculator = new StringCalculator();
+
+        $result_sum = $string_calculator->add("1,2,3,4\n5.5");
+
+        $this->assertEquals("15.5", $result_sum);
+    }
+
 }
