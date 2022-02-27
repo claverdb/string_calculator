@@ -126,4 +126,15 @@ class StringCalculatorTest extends TestCase
 
         $this->assertEquals("6",$result_sum);
     }
+
+    /**
+     * @test
+     */
+    public function should_response_error_given_string_with_delimiter_and_used_different_delimiter(){
+        $string_calculator = new StringCalculator();
+
+        $result_error = $string_calculator->add("//|\n1|2,3");
+
+        $this->assertEquals("'|' expected but ',' found at position 3", $result_error);
+    }
 }

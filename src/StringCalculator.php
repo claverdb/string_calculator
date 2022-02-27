@@ -28,19 +28,26 @@ class StringCalculator
 
             }
         } else {
-            if(str_starts_with($number,"//")){
+            if(str_starts_with($number,"//")){ //Case of custom delimiter
                 $number = ltrim($number, '/');
                 $separated_operations = explode("\n", $number);
+
+                for($i = 0; $i < strlen($separated_operations[1]); $i++){
+                    if ($separated_operations[1][$i] != $separated_operations[0] and !is_numeric($separated_operations[1][$i])){
+                        return "'$separated_operations[0]' expected but '". $separated_operations[1][$i] ."' found at position $i";
+
+                    }
+                }
+
                 $separated_numbers_str = explode($separated_operations[0], $separated_operations[1]);
 
-            } else {
+            } else { //case of line jump or comma delimiter
                 $separated_numbers_str = preg_split('/[,|\n]/', $number);
 
             }
-            $number_of_separated_numbers = count($separated_numbers_str);
 
             $aux_before_number = 0;
-            for($i = 0; $i < $number_of_separated_numbers; $i++){
+            for($i = 0; $i < count($separated_numbers_str); $i++){
                 $aux_before_number += (double) $separated_numbers_str[$i];
 
             }
