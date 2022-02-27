@@ -16,9 +16,15 @@ class StringCalculator
 
         } else {
             $separated_numbers_str = explode(",", $number);
-            $number_to_sum1 = (int) $separated_numbers_str[0];
-            $number_to_sum2 = (int) $separated_numbers_str[1];
-            $number = strval($number_to_sum1+$number_to_sum2);
+
+            $number_of_separated_numbers = count($separated_numbers_str);
+
+            $aux_before_number = 0;
+            for($i = 0; $i < $number_of_separated_numbers; $i++){
+                $aux_before_number += (double) $separated_numbers_str[$i];
+            }
+
+            $number = $aux_before_number;
             return $number;
         }
     }

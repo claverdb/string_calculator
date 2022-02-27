@@ -38,9 +38,33 @@ class StringCalculatorTest extends TestCase
     {
         $string_calculator = new StringCalculator();
 
-        $result = $string_calculator->add("2,3");
+        $result_sum = $string_calculator->add("2,3");
 
-        $this->assertEquals("5",$result);
+        $this->assertEquals("5",$result_sum);
+    }
+
+    /**
+     * @test
+     */
+    public function should_add_many_whole_numbers_of_one_string_separated_by_comma()
+    {
+        $string_calculator = new StringCalculator();
+
+        $result_sum = $string_calculator->add("1,2,3,4,5");
+
+        $this->assertEquals("15", $result_sum);
+    }
+
+    /**
+     * @test
+     */
+    public function should_add_many_real_numbers_of_one_string_separated_by_comma()
+    {
+        $string_calculator = new StringCalculator();
+
+        $result_sum = $string_calculator->add("1,2,3,4,5.5");
+
+        $this->assertEquals("15.5", $result_sum);
     }
 
 }
