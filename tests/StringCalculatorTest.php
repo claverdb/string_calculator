@@ -79,4 +79,15 @@ class StringCalculatorTest extends TestCase
         $this->assertEquals("15.5", $result_sum);
     }
 
+    /**
+     * @test
+     */
+    public function should_response_error_given_string_of_real_numbers_separated_by_comma_and_line_jump_together()
+    {
+        $string_calculator = new StringCalculator();
+
+        $result_error = $string_calculator->add("1,2,3,4,\n5.5");
+
+        $this->assertEquals("Number expected but ".'\n'." found at position 8",$result_error);
+    }
 }

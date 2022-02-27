@@ -14,6 +14,18 @@ class StringCalculator
         } elseif (!str_contains($number, ",")){
             return $number;
 
+        } elseif (str_contains($number, ",\n") || str_contains($number, "\n,")) {
+            if($pos = strpos($number, ",\n")){
+                $pos++;
+                return "Number expected but ".'\n'." found at position $pos";
+
+            } elseif ($pos = strpos($number, "\n,")) {
+                $pos++;
+                return "Number expected but ".','." found at position $pos";
+
+            } else{
+                return "Not found";
+            }
         } else {
             $separated_numbers_str = preg_split('/[,|\n]/', $number);
 
