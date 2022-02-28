@@ -5,7 +5,7 @@ namespace Deg540\PHPTestingBoilerplate\Test;
 use Deg540\PHPTestingBoilerplate\StringCalculator;
 use PHPUnit\Framework\TestCase;
 
-class StringCalculatorTest extends TestCase
+class StringCalculatorTest extends TestCase //Read README.md before execute
 {
     private StringCalculator $string_calculator;
 
