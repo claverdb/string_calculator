@@ -40,6 +40,7 @@ class StringCalculator
     }
 
     //Function checks all the errors that are given in the array and concatenates them into the string
+    //Returns ok if there aren't errors
     public function check_errors(Array $errors_list): String
     {
         $concatenated_errors_str = "";
@@ -107,7 +108,7 @@ class StringCalculator
         }
 
         if($negative_numbers != ""){
-            $errors_list[] = "Negative not allowed: " . substr($negative_numbers, 0 ,-2);
+            $errors_list[] = "Negative not allowed: " . substr($negative_numbers, 0 ,-2); //deletes the last ', '
         }
 
         $returned_error = $this->check_errors($errors_list);
