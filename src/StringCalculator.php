@@ -4,10 +4,12 @@
 namespace Deg540\PHPTestingBoilerplate;
 
 
+use JetBrains\PhpStorm\Pure;
+
 class StringCalculator
 {
     //Function to return unexpected operations
-    //Must control empty string if it doesn't find an unexpected operation
+    //Must be controlled empty string if it doesn't find an unexpected operation
     public function find_unexpected_operation(String $input_number_str, String $expected): String
     {
         $iterator = 0;
@@ -21,7 +23,7 @@ class StringCalculator
     }
 
     //Function find unexpected items that should be numbers
-    //Must control empty string if it doesn't find an unexpected item
+    //Must be controlled empty string if it doesn't find an unexpected item
     public function find_unexpected_number(String $input_number_str): String
     {
         $iterator = 1;
@@ -38,16 +40,29 @@ class StringCalculator
         return "";
     }
 
+    //Function checks all the errors that are given in the array and concatenates them into the string
+    public function check_errors(Array $concatenated_errors): String
+    {
+        $concatenated_errors_str = "";
+        if(!empty($concatenated_errors)){ //Must be some error
+            for($i = 0; $i < count($concatenated_errors); $i++){
+                $concatenated_errors_str .= $concatenated_errors[$i] . "\n";
+            }
+            $input_number_str = substr($concatenated_errors_str, 0 ,-1);
+            return $input_number_str . '.';
+
+        } else {
+            return "ok";
+
+        }
+    }
+
     public function add(String $input_number_str): String
     {
-        $contacted_errors = [];
+        $concatenated_errors = [];
 
         if ($input_number_str == ""){
             return "0";
-
-        }
-        if (str_ends_with($input_number_str, ',')){
-            $contacted_errors[] = "Number expected but NOT found";
 
         }
 
@@ -60,9 +75,9 @@ class StringCalculator
             $delimiter = $separated_operations[0];
             $input_number_str = $separated_operations[1];
 
-            $aux_contacted_error = $this->find_unexpected_operation($input_number_str, $delimiter);
-            if ($aux_contacted_error != ""){ //Control empty response
-                $contacted_errors[] = $aux_contacted_error;
+            $aux_concatenated_error = $this->find_unexpected_operation($input_number_str, $delimiter);
+            if ($aux_concatenated_error != ""){ //Control empty response
+                $concatenated_errors[] = $aux_concatenated_error;
             }
 
             $delimiter = '/['.$delimiter.']/'; //given preg_split format
@@ -71,16 +86,20 @@ class StringCalculator
 
         $separated_numbers_str = preg_split($delimiter, $input_number_str);
 
-        $aux_contacted_error = $this->find_unexpected_number($input_number_str);
-        if ($aux_contacted_error != ""){ //Control empty response
-            $contacted_errors[] = $aux_contacted_error;
+        if (in_array("", $separated_numbers_str)){ //Must be two delimiters together or one at the end
+            $aux_concatenated_error = $this->find_unexpected_number($input_number_str);
+            if ($aux_concatenated_error != ""){ //Control empty response
+                $concatenated_errors[] = $aux_concatenated_error;
+            } else { //must be the last position
+                $concatenated_errors[] = "Number expected but NOT found";
+            }
         }
 
-        $aux_before_number = 0;
+        $sum_number = 0;
         $negative_numbers = "";
         //sum numbers
         for($i = 0; $i < count($separated_numbers_str); $i++){
-            $aux_before_number += (double) $separated_numbers_str[$i];
+            $sum_number += (double) $separated_numbers_str[$i];
 
             //Find negative numbers
             if ((double)$separated_numbers_str[$i] < 0){
@@ -89,20 +108,15 @@ class StringCalculator
         }
 
         if($negative_numbers != ""){
-            $contacted_errors[] = "Negative not allowed: " . substr($negative_numbers, 0 ,-2);
+            $concatenated_errors[] = "Negative not allowed: " . substr($negative_numbers, 0 ,-2);
         }
 
-        $contacted_errors_str = "";
-        if(!empty($contacted_errors)){ //Must be some error
-            for($i = 0; $i < count($contacted_errors); $i++){
-                $contacted_errors_str .= $contacted_errors[$i] . "\n";
-            }
-            $input_number_str = substr($contacted_errors_str, 0 ,-1);
-            return $input_number_str . '.';
+        $returned_error = $this->check_errors($concatenated_errors);
+        if ($this->check_errors($concatenated_errors) == "ok"){
+            return $sum_number;
 
         } else {
-            $input_number_str = $aux_before_number;
-            return $input_number_str;
+            return $returned_error;
 
         }
     }
