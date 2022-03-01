@@ -6,4 +6,15 @@ jobs:
     steps:
       - name: Activate checkout@v2
         uses: actions/checkout@v2
-      - run: composer install
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          tools: composer:v2
+          php-version: '8.0'
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run units test
+        run: vendor/bin/phpunit -c phpunit.xml
