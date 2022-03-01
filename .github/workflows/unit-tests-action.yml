@@ -1,4 +1,4 @@
-name: learn-github-actions
+name: unit-tests-action
 on: [push]
 jobs:
   composer-install:
