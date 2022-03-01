@@ -17,4 +17,4 @@ jobs:
         run: composer install
 
       - name: Run units test
-        run: vendor/bin/phpunit -c phpunit.xml
+        run: ./vendor/bin/phpunit -c phpunit.xml
