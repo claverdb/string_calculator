@@ -1,0 +1,9 @@
+name: learn-github-actions
+on: [push]
+jobs:
+  composer-install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Activate checkout@v2
+        uses: actions/checkout@v2
+      - run: composer install
